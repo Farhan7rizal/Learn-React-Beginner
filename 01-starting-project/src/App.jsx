@@ -1,5 +1,6 @@
 import reactImage from "./assets/react-core-concepts.png";
 import componentImage from "./assets/components.png";
+import { CORE_CONCEPTS } from "./data";
 
 const reactDescriptions = ["Fundamental", "Crucial", "Core"];
 
@@ -7,13 +8,14 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max + 1);
 }
 
-function CoreConcept(props) {
+function CoreConcept({ title, description, image }) {
+  //using destructuring syntax, than using parent parameter, like props.image ext
   //this get called in another componen function, and get parameter value," <CoreConcept title="Components" ...." , <= is called props
   return (
     <li>
-      <img src={props.image} alt={props.title} />
-      <h3>{props.title}</h3>
-      <p>{props.description}</p>
+      <img src={image} alt={title} />
+      <h3>{title}</h3>
+      <p>{description}</p>
     </li>
   );
 }
@@ -42,11 +44,15 @@ function App() {
           <ul>
             <CoreConcept
               title="Components"
-              description="The Core UI building block."
+              description="The core UI building block - compose the user interface by combining multiple components."
               image={componentImage}
             />
-            <CoreConcept />
-            <CoreConcept />
+            <CoreConcept
+              title={CORE_CONCEPTS[1].title}
+              description={CORE_CONCEPTS[1].description}
+              image={CORE_CONCEPTS[1].image}
+            />
+            <CoreConcept {...CORE_CONCEPTS[2]} />
             <CoreConcept />
           </ul>
         </section>
