@@ -53,6 +53,7 @@ function App() {
         </section>
         <section id="examples">
           <h2>Examples</h2>
+          {/* //can't we change children value dynamically based on data.js */}
           <menu>
             <TabButton
               isSelected={selectedTopic === "components"}
