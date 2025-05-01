@@ -32,7 +32,7 @@ function App() {
   return (
     <div>
       <Header></Header>
-      {EXAMPLES["jsx"].title}
+      {/* {EXAMPLES[0].title} */}
       <main>
         <section id="core-concepts">
           <h2>Core Concepts</h2>
@@ -56,8 +56,8 @@ function App() {
           {/* //can't we change children value dynamically based on data.js */}
           <menu>
             <TabButton
-              isSelected={selectedTopic === "components"}
-              onSelect={() => handleSelect("components")}
+              isSelected={selectedTopic === CORE_CONCEPTS[0].title}
+              onSelect={() => handleSelect(CORE_CONCEPTS[0].title)}
             >
               Components
             </TabButton>
