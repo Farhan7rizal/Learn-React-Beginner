@@ -32,7 +32,7 @@ function App() {
   return (
     <div>
       <Header></Header>
-      {/* {EXAMPLES[0].title} */}
+      {EXAMPLES["components"].title}
       <main>
         <section id="core-concepts">
           <h2>Core Concepts</h2>
@@ -57,7 +57,7 @@ function App() {
           <menu>
             <TabButton
               isSelected={selectedTopic === CORE_CONCEPTS[0].title}
-              onSelect={() => handleSelect(CORE_CONCEPTS[0].title)}
+              onSelect={() => handleSelect(EXAMPLES["components"].title)}
             >
               Components
             </TabButton>
