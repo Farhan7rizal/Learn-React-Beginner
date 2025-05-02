@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, Fragment } from "react";
 
 import componentImage from "./assets/components.png";
 import { CORE_CONCEPTS } from "./data";
@@ -30,7 +30,7 @@ function App() {
     );
   }
   return (
-    <div>
+    <>
       <Header></Header>
       {EXAMPLES["components"].title}
       <main>
@@ -88,7 +88,7 @@ function App() {
           {tabContent}
         </section>
       </main>
-    </div>
+    </>
   );
 }
 
