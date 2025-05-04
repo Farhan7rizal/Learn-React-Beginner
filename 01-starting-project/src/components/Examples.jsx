@@ -31,6 +31,7 @@ export default function Examples() {
     // {/* //can't we change children value dynamically based on data.js */}
     <Section title="Examples" id="examples">
       <Tabs
+        ButtonsContainer="menu"
         buttons={
           <>
             <TabButton
