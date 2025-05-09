@@ -4,7 +4,9 @@ export default function Player({ name, symbol }) {
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEditClick() {
-    setIsEditing(!isEditing);
+    // setIsEditing(!isEditing); //schedule state update to true ?
+    // setIsEditing(!isEditing); //schedule state update to true ?
+    setIsEditing((editing) => !editing); // instead above, use this to get latest value
   }
 
   let playerName = <span className="player-name">{name}</span>;
