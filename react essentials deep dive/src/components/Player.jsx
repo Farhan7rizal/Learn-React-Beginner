@@ -13,7 +13,7 @@ export default function Player({ initialName, symbol }) {
   let editablePlayerName = <span className="player-name">{playerName}</span>;
 
   function handleChange(event) {
-    console.log(event);
+    // console.log(event);
     setPlayerName(event.target.value);
   }
 
