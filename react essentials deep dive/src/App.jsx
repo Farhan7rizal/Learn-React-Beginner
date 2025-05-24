@@ -31,7 +31,10 @@ function App() {
 
   const activePlayer = deriveActivePlayer(gameTurns);
 
-  const gameBoard = initialGameBoard;
+  // const gameBoard = initialGameBoard;
+  //we need to reset initial array, bc referenced value, they stored in memory, using them in different variables, we're always editing the same array,
+  // SOLUTION is create a deep copy, outer and inner array
+  const gameBoard = [...initialGameBoard.map((array) => [...array])];
 
   for (const turn of gameTurns) {
     const { square, player } = turn;
@@ -50,24 +53,24 @@ function App() {
     const thirdSquareSymbol =
       gameBoard[combinations[2].row][combinations[2].column];
 
-    console.log(
-      "first",
-      firstSquareSymbol,
-      combinations[0].row,
-      combinations[0].column
-    );
-    console.log(
-      "second",
-      secondSquareSymbol,
-      combinations[1].row,
-      combinations[1].column
-    );
-    console.log(
-      "third",
-      thirdSquareSymbol,
-      combinations[2].row,
-      combinations[2].column
-    );
+    // console.log(
+    //   "first",
+    //   firstSquareSymbol,
+    //   combinations[0].row,
+    //   combinations[0].column
+    // );
+    // console.log(
+    //   "second",
+    //   secondSquareSymbol,
+    //   combinations[1].row,
+    //   combinations[1].column
+    // );
+    // console.log(
+    //   "third",
+    //   thirdSquareSymbol,
+    //   combinations[2].row,
+    //   combinations[2].column
+    // );
 
     if (
       firstSquareSymbol &&
@@ -78,7 +81,7 @@ function App() {
     }
   }
 
-  const hasDraw = (gameTurns.length === 9) & !winner;
+  const hasDraw = gameTurns.length === 9 && !winner;
 
   function handleSelectSquare(colIndex, rowIndex) {
     // setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
@@ -96,6 +99,9 @@ function App() {
     });
   }
 
+  function handleRestart() {
+    setGameTurns([]);
+  }
   return (
     <main>
       <div id="game-container">
@@ -111,7 +117,10 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
-        {(winner || hasDraw) && <GameOver winner={winner}></GameOver>}
+
+        {(winner || hasDraw) && (
+          <GameOver winner={winner} onRestart={handleRestart}></GameOver>
+        )}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns}></Log>
