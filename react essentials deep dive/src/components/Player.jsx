@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
   const [playerName, setPlayerName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -8,6 +13,9 @@ export default function Player({ initialName, symbol, isActive }) {
     // setIsEditing(!isEditing); //schedule state update to true ?
     // setIsEditing(!isEditing); //schedule state update to true ?
     setIsEditing((editing) => !editing); // instead above, use this to get latest value
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   }
 
   let editablePlayerName = <span className="player-name">{playerName}</span>;
