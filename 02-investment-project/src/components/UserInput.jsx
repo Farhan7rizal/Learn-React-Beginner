@@ -1,11 +1,9 @@
-import { useState } from "react";
-
-export default function UserInput(userInput, onChange) {
+export default function UserInput({ onChange, userInput }) {
   return (
     <section id="user-input">
       <div className="input-group">
         <p>
-          <label>Intial Investment</label>
+          <label>Initial Investment</label>
           <input
             type="number"
             required
