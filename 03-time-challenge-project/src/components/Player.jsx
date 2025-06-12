@@ -16,6 +16,7 @@ export default function Player() {
     //
     // setSubmitted(true);
     setEnteredPlayerName(playerName.current.value);
+    playerName.current.value = "";
   }
   return (
     <section id="player">
