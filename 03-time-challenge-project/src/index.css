@@ -125,6 +125,9 @@ header p {
 .challenge .active {
   animation: flash 1s infinite;
 }
+.result-modal::backdrop {
+  background: rgba(0, 0, 0, 0.9);
+}
 
 @keyframes flash {
   0% {
