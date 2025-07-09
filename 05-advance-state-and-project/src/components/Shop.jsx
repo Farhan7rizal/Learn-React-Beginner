@@ -6,6 +6,14 @@ export default function Shop() {
       <ul id="products">
         <li>
           <Product></Product>
+        </li>
+        <li>
+          <Product></Product>
+        </li>
+        <li>
+          <Product></Product>
+        </li>
+        <li>
           <Product></Product>
         </li>
       </ul>
