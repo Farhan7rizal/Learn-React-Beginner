@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header.jsx";
 import Shop from "./components/Shop.jsx";
+import Product from "../src - Copy/components/Product.jsx";
 
 import { DUMMY_PRODUCTS } from "./dummy-products.js";
 
@@ -69,7 +70,13 @@ function App() {
         cart={shoppingCart}
         onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
       />
-      <Shop onAddItemToCart={handleAddItemToCart} />
+      <Shop onAddItemToCart={handleAddItemToCart}>
+        {DUMMY_PRODUCTS.map((product) => (
+          <li key={product.id}>
+            <Product {...product} onAddToCart={handleAddItemToCart}></Product>
+          </li>
+        ))}
+      </Shop>
     </>
   );
 }
