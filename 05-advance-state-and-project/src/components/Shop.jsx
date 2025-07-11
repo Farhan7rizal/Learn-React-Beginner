@@ -1,21 +1,16 @@
+import { DUMMY_PRODUCTS } from "../dummy-products";
 import Product from "./Product";
-export default function Shop() {
+
+export default function Shop({ onAddItemToCart }) {
   return (
     <section id="shop">
       <h2>Elegant Clothing For Everyone</h2>
       <ul id="products">
-        <li>
-          <Product></Product>
-        </li>
-        <li>
-          <Product></Product>
-        </li>
-        <li>
-          <Product></Product>
-        </li>
-        <li>
-          <Product></Product>
-        </li>
+        {DUMMY_PRODUCTS.map((product) => (
+          <li key={product.id}>
+            <Product {...product} onAddToCart={onAddItemToCart}></Product>
+          </li>
+        ))}
       </ul>
     </section>
   );
