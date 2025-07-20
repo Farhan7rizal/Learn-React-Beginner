@@ -7,7 +7,7 @@ import { useState } from "react";
 function App() {
   const [pickedPlaces, setPickedPlaces] = useState([]);
 
-  function handleSelectPlaces(id) {
+  function handleSelectPlace(id) {
     setPickedPlaces((prevPickedPlaces) => {
       if (prevPickedPlaces.some((place) => place.id === id)) {
         return prevPickedPlaces;
@@ -31,11 +31,12 @@ function App() {
         <Places
           title="I'd like to visit ..."
           fallbackText="Select the places you would like to visit below."
+          places={pickedPlaces}
         />
         <Places
           title="Available Places"
-          Places={AVAILABLE_PLACES}
-          onSelecetPlace={handleSelectPlaces}
+          places={AVAILABLE_PLACES}
+          onSelectPlace={handleSelectPlace}
         />
       </main>
     </>
