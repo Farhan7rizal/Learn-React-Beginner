@@ -1,11 +1,15 @@
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
   return (
-    <div>
+    <div id="delete-confirmation">
       <h2>Are you sure?</h2>
       <p>Do you really want to delete this place?</p>
-      <div>
-        <button onClick={onCancel}>No</button>
-        <button onClick={onConfirm}>Yes</button>
+      <div id="confirmation-actions">
+        <button onClick={onCancel} className="button-text">
+          No
+        </button>
+        <button onClick={onConfirm} className="button">
+          Yes
+        </button>
       </div>
     </div>
   );
