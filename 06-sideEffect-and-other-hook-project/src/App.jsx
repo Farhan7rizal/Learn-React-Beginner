@@ -2,7 +2,7 @@ import { AVAILABLE_PLACES } from "./data.js";
 
 import logoImg from "./assets/logo.png";
 import Places from "./components/Places.jsx";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import { sortPlacesByDistance } from "./loc.js";
@@ -10,14 +10,19 @@ function App() {
   const modal = useRef();
   const selectedPlace = useRef();
   const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [availablePlaces, setAvailablePlaces] = useState([]);
 
-  navigator.geolocation.getCurrentPosition((position) => {
-    const sortedPlace = sortPlacesByDistance(
-      AVAILABLE_PLACES,
-      position.coords.latitude,
-      position.coords.longitude
-    );
-  });
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const sortedPlace = sortPlacesByDistance(
+        AVAILABLE_PLACES,
+        position.coords.latitude,
+        position.coords.longitude
+      );
+
+      setAvailablePlaces(sortedPlace);
+    });
+  }, []); //empty depedencies ,[], will execute after app cycle, so break infinite loop
 
   function handleStartRemovePlace(id) {
     modal.current.open();
@@ -67,7 +72,8 @@ function App() {
         />
         <Places
           title="Available Places"
-          places={AVAILABLE_PLACES}
+          places={availablePlaces}
+          fallbackText={"Sorting places by distance ..."}
           onSelectPlace={handleSelectPlace}
         />
       </main>
