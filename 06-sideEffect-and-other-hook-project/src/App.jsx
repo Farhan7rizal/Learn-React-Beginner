@@ -6,10 +6,16 @@ import { useEffect, useRef, useState } from "react";
 import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import { sortPlacesByDistance } from "./loc.js";
+
+const storeIds = JSON.parse(localStorage.getItem("selectedPlaces")) || []; //so local storage doesn't use useEffect
+const storedPlaces = storeIds.map((id) =>
+  AVAILABLE_PLACES.find((place) => place.id === id)
+);
+
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
-  const [pickedPlaces, setPickedPlaces] = useState([]);
+  const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
   const [availablePlaces, setAvailablePlaces] = useState([]);
 
   useEffect(() => {
@@ -51,6 +57,12 @@ function App() {
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
     modal.current.close();
+
+    const storeIds = JSON.parse(localStorage.getItem("selectedPlaces")) || []; //of course no such item yet so empty array
+    localStorage.setItem(
+      "selectedPlaces",
+      JSON.stringify(storeIds.filter((id) => id !== selectedPlace.current))
+    );
   }
   return (
     <>
