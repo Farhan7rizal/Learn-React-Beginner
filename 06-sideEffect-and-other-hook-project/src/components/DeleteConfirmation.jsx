@@ -11,7 +11,10 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
       console.log("cleaning up timer");
       clearTimeout(timer);
     };
-  }, []);
+
+    //bc on JS function is never equal, even 100% same code, bc the dependencies [onConfirm], re-execute again so causes an infinite loop. app run again fn run again and soon. if setModalIsOpen(false) in handleRemovePlace remove, if we click and wait, the doom disapear( and pickedPlaces remove), until we no, it causes infinite loop.
+    //the solution is to use hook in the handleRemovePlace() or onConfirm prop in the app, use callback hook
+  }, [onConfirm]);
 
   return (
     <div id="delete-confirmation">
