@@ -142,6 +142,23 @@ header h1 {
   color: #3a2353;
 }
 
+#question progress {
+  width: 50%;
+  height: 0.5rem;
+  border-radius: 24px;
+  background: #9e5ef8;
+  margin: 0;
+}
+#question progress::-webkit-progress-bar {
+  background: #6a558a;
+  border-radius: 24px;
+}
+
+#question progress::-webkit-progress-value {
+  background: #9e5ef8;
+  border-radius: 24px;
+}
+
 @keyframes slide-in-from-bottom {
   0% {
     opacity: 0;
