@@ -8,10 +8,12 @@ export default function QuestionTimer({ timeOut, onTimeOut }) {
   // }, timeOut); //from this to bellow
 
   useEffect(() => {
+    console.log("SETTING TIMEOUT");
     setTimeout(onTimeOut, timeOut);
   }, [onTimeOut, timeOut]);
 
   useEffect(() => {
+    console.log("SETTING Interval");
     setInterval(() => {
       setRemainingTime((prevRemainingTime) => prevRemainingTime - 100);
     }, 100);
