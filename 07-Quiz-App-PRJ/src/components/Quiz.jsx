@@ -64,12 +64,16 @@ export default function Quiz() {
             if (answerState === "answered" && isSelected) {
               cssClass = "selected";
             }
+            // console.log("isSelected: " + isSelected);
+            console.log("answer: " + answer);
+            console.log("user answer: " + userAnswer[userAnswer.length - 1]);
 
             if (
               (answerState === "correct" || answerState === "wrong") &&
               isSelected
             ) {
               cssClass = answerState;
+              console.log("answered state: " + answerState);
             }
             return (
               <li key={answer} className="answer">
