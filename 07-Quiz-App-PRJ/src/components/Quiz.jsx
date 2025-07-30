@@ -1,8 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import QUESTIONS from "../question.js";
 import QuestionTimer from "./QuestionTimer.jsx";
 import quizCompleteImg from "../assets/quiz-complete.png";
-
+import Answers from "./Answers.jsx";
+import Question from "./Question.jsx";
 export default function Quiz() {
   // const [activeQuestIndex, setActiveQuestIndex] = useState(0); //we can have like 1 question and many answer, the below state, or the computed value
   const [answerState, setAnswerState] = useState("");
@@ -45,49 +46,18 @@ export default function Quiz() {
       </div>
     );
   }
-  // shuffledAnswers after if quizComplete, so the answer is exhausted
-  const shuffledAnswers = [...QUESTIONS[activeQuestionIndex].answers];
-  shuffledAnswers.sort(() => Math.random() - 0.5);
+
   return (
     <div id="quiz">
-      <div id="question">
-        <QuestionTimer
-          key={activeQuestionIndex}
-          timeOut={10000}
-          onTimeOut={handleSkipAnswer}
-        />
-        <h2>{QUESTIONS[activeQuestionIndex].text}</h2>
-        <ul id="answers">
-          {shuffledAnswers.map((answer) => {
-            const isSelected = userAnswer[userAnswer.length - 1] === answer;
-            let cssClass = "";
-            if (answerState === "answered" && isSelected) {
-              cssClass = "selected";
-            }
-            // console.log("isSelected: " + isSelected);
-            console.log("answer: " + answer);
-            console.log("user answer: " + userAnswer[userAnswer.length - 1]);
-
-            if (
-              (answerState === "correct" || answerState === "wrong") &&
-              isSelected
-            ) {
-              cssClass = answerState;
-              console.log("answered state: " + answerState);
-            }
-            return (
-              <li key={answer} className="answer">
-                <button
-                  className={cssClass}
-                  onClick={() => handleSelectAnswer(answer)}
-                >
-                  {answer}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <Question
+        key={activeQuestionIndex}
+        questionText={QUESTIONS[activeQuestionIndex].text}
+        answers={QUESTIONS[activeQuestionIndex].answers}
+        onSelectAnswer={handleSelectAnswer}
+        answerState={answerState}
+        selectedAnswer={userAnswer[userAnswer.length - 1]}
+        onSkipAnswer={handleSkipAnswer}
+      />
     </div>
   );
 }
