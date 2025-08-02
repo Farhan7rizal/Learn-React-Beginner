@@ -6,31 +6,33 @@ import Answers from "./Answers.jsx";
 import Question from "./Question.jsx";
 export default function Quiz() {
   // const [activeQuestIndex, setActiveQuestIndex] = useState(0); //we can have like 1 question and many answer, the below state, or the computed value
-  const [answerState, setAnswerState] = useState("");
-  const [userAnswer, setUserAnswer] = useState([]);
+  // const [answerState, setAnswerState] = useState("");
+  const [userAnswers, setUserAnswers] = useState([]);
 
-  const activeQuestionIndex =
-    answerState === "" ? userAnswer.length : userAnswer.length - 1;
+  const activeQuestionIndex = userAnswers.length;
+  // const activeQuestionIndex =
+  //   answerState === "" ? userAnswers.length : userAnswers.length - 1;
 
   const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
   const handleSelectAnswer = useCallback(
     function handleSelectAnswer(selectedAnswer) {
-      setAnswerState("answered");
-      setUserAnswer((prevAnswers) => {
+      // setAnswerState("answered");
+      setUserAnswers((prevAnswers) => {
         return [...prevAnswers, selectedAnswer];
       });
-      setTimeout(() => {
-        if (selectedAnswer === QUESTIONS[activeQuestionIndex].answers[0]) {
-          setAnswerState("correct");
-        } else {
-          setAnswerState("wrong");
-        }
-        setTimeout(() => {
-          setAnswerState("");
-        }, 2000);
-      }, 1000);
+      // setTimeout(() => {
+      //   if (selectedAnswer === QUESTIONS[activeQuestionIndex].answers[0]) {
+      //     setAnswerState("correct");
+      //   } else {
+      //     setAnswerState("wrong");
+      //   }
+      //   setTimeout(() => {
+      //     setAnswerState("");
+      //   }, 2000);
+      // }, 1000);
     },
-    [activeQuestionIndex]
+    // [activeQuestionIndex]
+    []
   );
 
   const handleSkipAnswer = useCallback(
@@ -51,11 +53,8 @@ export default function Quiz() {
     <div id="quiz">
       <Question
         key={activeQuestionIndex}
-        questionText={QUESTIONS[activeQuestionIndex].text}
-        answers={QUESTIONS[activeQuestionIndex].answers}
+        index={activeQuestionIndex}
         onSelectAnswer={handleSelectAnswer}
-        answerState={answerState}
-        selectedAnswer={userAnswer[userAnswer.length - 1]}
         onSkipAnswer={handleSkipAnswer}
       />
     </div>
