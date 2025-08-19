@@ -5,6 +5,23 @@ import { sortPlacesByDistance } from "../loc.js";
 import { fetchAvailablePlaces } from "../http.js";
 import { useFetch } from "../hooks/useFetch.js";
 
+async function fetchSortedPlaces() {
+  const places = await fetchAvailablePlaces();
+
+  return new Promise((resolve) => {
+    //creating a promise here resolves to a value,and lets use fetch, know that the wait time is over (await fetchFn in custom hooks) by calling resolve once the value was there
+    navigator.geolocation.getCurrentPosition((position) => {
+      const sortedPlaces = sortPlacesByDistance(
+        places,
+        position.coords.latitude,
+        position.coords.longitude
+      );
+
+      resolve(sortedPlaces);
+    });
+  });
+}
+
 export default function AvailablePlaces({ onSelectPlace }) {
   // const [availablePlaces, setAvailablePlaces] = useState([]);
   // const [isFetching, setIsFetching] = useState(false);
@@ -61,7 +78,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
     fetchedData: availablePlaces,
     setFetchedData: setAvailablePlaces,
     error,
-  } = useFetch(fetchAvailablePlaces, []);
+  } = useFetch(fetchSortedPlaces, []);
 
   if (error) {
     return <Error title="An error occured!" message={error.message} />;
