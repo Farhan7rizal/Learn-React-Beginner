@@ -20,6 +20,7 @@ export default function Login() {
     const enteredPassword = password.current.value;
 
     console.log(enteredEmail, enteredPassword);
+    //
   }
 
   // function handleInputChange(identifier, value) {
