@@ -18,13 +18,19 @@ export default function Signup() {
 
       <div className="control">
         <label htmlFor="email">Email</label>
-        <input id="email" type="email" name="email" />
+        <input id="email" type="email" name="email" required />
       </div>
 
       <div className="control-row">
         <div className="control">
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password" />
+          <input
+            id="password"
+            type="password"
+            name="password"
+            required
+            minLength={7}
+          />
         </div>
 
         <div className="control">
@@ -53,7 +59,7 @@ export default function Signup() {
 
       <div className="control">
         <label htmlFor="phone">What best describes your role?</label>
-        <select id="role" name="role">
+        <select id="role" name="role" required>
           <option value="student">Student</option>
           <option value="teacher">Teacher</option>
           <option value="employee">Employee</option>
@@ -80,6 +86,7 @@ export default function Signup() {
             id="friend"
             name="acquisition"
             value="friend"
+            required
           />
           <label htmlFor="friend">Referred by friend</label>
         </div>
