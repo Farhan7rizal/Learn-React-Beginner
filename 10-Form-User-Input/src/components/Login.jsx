@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 
 export default function Login() {
+  const [formIsInvalid, setFormIsInvalid] = useState();
+  const [emailIsInvalid, setEmailIsInvalid] = useState(false);
   const email = useRef();
   const password = useRef();
   // const [enteredEmail, setEnteredEmail] = useState("");
@@ -20,7 +22,13 @@ export default function Login() {
     const enteredPassword = password.current.value;
 
     console.log(enteredEmail, enteredPassword);
-    //
+    const emailValid = enteredEmail.includes("@");
+    if (!emailValid) {
+      setEmailIsInvalid(true);
+      return;
+    }
+    setEmailIsInvalid(false);
+    console.log("Sending HTTP req.....");
   }
 
   // function handleInputChange(identifier, value) {
@@ -49,9 +57,12 @@ export default function Login() {
             type="email"
             name="email"
             ref={email}
-            // onChange={(event) => handleInputChange("email", event.target.value)}
             // value={enteredValues.email}
+            // onChange={(event) => handleInputChange("email", event.target.value)}
           />
+          <div className="control-error">
+            {emailIsInvalid && <p>Please enter a valid email</p>}
+          </div>
         </div>
 
         <div className="control no-margin">
