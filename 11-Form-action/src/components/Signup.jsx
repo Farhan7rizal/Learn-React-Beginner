@@ -1,3 +1,4 @@
+import { useActionState, useLayoutEffect } from "react";
 import {
   isEmail,
   isNotEmpty,
@@ -6,7 +7,7 @@ import {
 } from "../util/validation.js";
 
 export default function Signup() {
-  function signupAction(formData) {
+  function signupAction(prevFormState, formData) {
     // event.preventDefault();
     const email = formData.get("email");
     const password = formData.get("password");
@@ -16,34 +17,44 @@ export default function Signup() {
     const role = formData.get("role");
     const terms = formData.get("terms");
     const acquisitionChannel = formData.getAll("acquisition");
-    console.log(enteredEmail);
-    let error = [];
+
+    let errors = [];
     if (!isEmail(email)) {
-      error.push("invalid email address");
+      errors.push("invalid email address");
     }
     if (!isNotEmpty(password) || !hasMinLength(password, 6)) {
-      error.push("you must provide a pass with at least 6 character");
+      errors.push("you must provide a pass with at least 6 character");
     }
 
     if (!isEqualToOtherValue(password, confirmPassword)) {
-      error.push("password not match");
+      errors.push("password not match");
     }
     if (!isNotEmpty(firstName) || !isNotEmpty(lastName)) {
-      error.push("please provide both first and last name");
+      errors.push("please provide both first and last name");
     }
     if (!isNotEmpty(role)) {
-      error.push("please select a role");
+      errors.push("please select a role");
     }
     if (!terms) {
-      error.push("you must aggre to terms and conditions");
+      errors.push("you must aggre to terms and conditions");
     }
     if (acquisitionChannel.length === 0) {
-      error.push("please select at least one acqusition channel");
+      errors.push("please select at least one acqusition channel");
     }
+
+    if (errors.length > 0) {
+      return { errors };
+    }
+
+    return { errors: null };
   }
 
+  const [formState, formAction, pending] = useActionState(signupAction, {
+    errors: null,
+  });
+
   return (
-    <form action={signupAction}>
+    <form action={formAction}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
@@ -127,7 +138,13 @@ export default function Signup() {
           agree to the terms and conditions
         </label>
       </div>
-
+      {formState.errors && (
+        <ul className="error">
+          {formState.errors.map((error) => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      )}
       <p className="form-actions">
         <button type="reset" className="button button-flat">
           Reset
